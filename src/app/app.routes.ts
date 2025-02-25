@@ -6,5 +6,5 @@ import { UserComponent } from './user/user.component';
 export const routes: Routes = [
     {path:'', component:DashboardComponent},
     {path:'dashboard', component:DashboardComponent},
-    {path:'users', component:UserComponent}
+    {path:'user', component:UserComponent}
 ];

@@ -6,8 +6,8 @@
 
 
     <ul class="menu">
-      <li><mat-icon>perm_identity</mat-icon>User</li>
-      <li><mat-icon>fact_check</mat-icon>Dashboard</li>
+      <li [routerLink]="['/user']" routerLinkActive="router-link-active" ><mat-icon>perm_identity</mat-icon>User</li>
+      <li [routerLink]="['/']" routerLinkActive="router-link-active" ><mat-icon>fact_check</mat-icon>Dashboard</li>
     </ul>
   </mat-drawer>
 
