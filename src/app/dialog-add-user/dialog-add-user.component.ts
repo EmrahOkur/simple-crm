@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component } from '@angular/core';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule,MatDialogRef } from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,12 +9,15 @@ import { User } from '../../models/user.class';
 import { FormsModule } from '@angular/forms';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { inject } from '@angular/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-dialog-add-user',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule,MatButtonModule,MatDialogModule,FormsModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule,MatButtonModule,MatDialogModule,FormsModule,MatProgressBarModule,CommonModule,],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dialog-add-user.component.html',
   styleUrl: './dialog-add-user.component.scss',
@@ -25,11 +28,13 @@ import { inject } from '@angular/core';
 export class DialogAddUserComponent {
 user=new User();
 birthDate: Date=new Date() ; 
+loading=false;
 
 private firestore: Firestore = inject(Firestore);
-
+constructor(private dialogRef: MatDialogRef<DialogAddUserComponent>) {}
 
 saveUser() {
+  this.loading=true;
 
   this.user.birthDate=this.birthDate.getTime();
   console.log('current user is',this.user);
@@ -39,10 +44,18 @@ saveUser() {
   
   addDoc(usersCollection, { ...this.user })
     .then((result) => {
+      this.loading=false;
+      this.closeDialog();
       console.log('User added successfully:', result);
     })
     .catch((error) => {
       console.error('Error adding user:', error);
+      this.loading = false;
+        this.closeDialog();
     });
 }
+closeDialog(): void {
+  this.dialogRef.close(); 
+}
+
 }
