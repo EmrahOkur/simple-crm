@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { User } from '../../models/user.class';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -15,7 +16,7 @@ import { User } from '../../models/user.class';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatButtonModule,MatIconModule,MatTooltipModule,MatFormFieldModule,MatDatepickerModule,MatNativeDateModule,],
+  imports: [MatButtonModule,MatIconModule,MatTooltipModule,MatFormFieldModule,MatDatepickerModule,MatNativeDateModule,MatCardModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
