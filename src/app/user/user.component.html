@@ -5,15 +5,11 @@
     <th>E-Mail</th>
     <th>City</th>
   </tr>
-  <tr>
-    <td>Emrah</td>
-    <td>Okur</td>
-    <td>Winsen Luhe</td>
-  </tr>
-  <tr>
-    <td>Emrah</td>
-    <td>Okur</td>
-    <td>Winsen Luhe</td>
+  
+  <tr *ngFor="let user of allUsers$ | async" >
+    <td>{{user.firstName}} {{user.lastName}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.city}}</td>
   </tr>
 
   </table>
