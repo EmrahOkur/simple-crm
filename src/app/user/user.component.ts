@@ -13,13 +13,17 @@ import { Firestore, FirestoreModule, collection, collectionData } from '@angular
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { inject, OnInit } from '@angular/core';
+import { UserDetailComponent } from '../user-detail/user-detail.component';
+import { RouterModule } from '@angular/router';
+
+
 
 
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatButtonModule,MatIconModule,MatTooltipModule,MatFormFieldModule,MatDatepickerModule,MatNativeDateModule,MatCardModule,CommonModule,FirestoreModule],
+  imports: [MatButtonModule,MatIconModule,MatTooltipModule,MatFormFieldModule,MatDatepickerModule,MatNativeDateModule,MatCardModule,CommonModule,FirestoreModule,RouterModule ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
@@ -34,7 +38,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     const usersCollection = collection(this.firestore, 'users');
-    this.allUsers$ = collectionData(usersCollection); 
+    this.allUsers$ = collectionData (usersCollection, { idField: 'id' });
   }
 
   openDialog() {
