@@ -4,13 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Firestore, collection, addDoc, doc, docData } from '@angular/fire/firestore';
 import { inject } from '@angular/core';
 import { User } from '../../models/user.class';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatCardModule,],
+  imports: [MatCardModule,MatIconModule,MatButtonModule,MatMenuModule],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
 })
@@ -35,4 +38,18 @@ user:User=new User();
       console.log('Retrieved User', userData)
     });
   }
+
+  openAddressDialog(){
+
+  }
+
+  editUserMenu(){
+
+  }
+
+  editMenu(){
+    
+  }
 }
+
+
