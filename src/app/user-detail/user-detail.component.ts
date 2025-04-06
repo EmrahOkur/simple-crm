@@ -7,6 +7,9 @@ import { User } from '../../models/user.class';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddedAddressComponent } from '../dialog-added-address/dialog-added-address.component';
+import { DialogAddedUserComponent } from '../dialog-added-user/dialog-added-user.component';
 
 
 
@@ -21,7 +24,7 @@ export class UserDetailComponent implements OnInit {
   private firestore: Firestore = inject(Firestore);
 userId='';
 user:User=new User();
-  constructor(private route: ActivatedRoute,){}
+  constructor(private route: ActivatedRoute,private dialog: MatDialog){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap =>{
@@ -44,11 +47,13 @@ user:User=new User();
   }
 
   editUserMenu(){
+    this.dialog.open(DialogAddedUserComponent)
 
   }
 
   editMenu(){
-    
+    const dialog=this.dialog.open(DialogAddedAddressComponent)
+    dialog.componentInstance.user=this.user;
   }
 }
 
