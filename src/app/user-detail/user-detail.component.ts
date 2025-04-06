@@ -10,13 +10,14 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddedAddressComponent } from '../dialog-added-address/dialog-added-address.component';
 import { DialogAddedUserComponent } from '../dialog-added-user/dialog-added-user.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatCardModule,MatIconModule,MatButtonModule,MatMenuModule],
+  imports: [MatCardModule,MatIconModule,MatButtonModule,MatMenuModule,],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss'
 })
