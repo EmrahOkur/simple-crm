@@ -47,7 +47,8 @@ user:User=new User();
   }
 
   editUserMenu(){
-    this.dialog.open(DialogAddedUserComponent)
+    const dialog=this.dialog.open(DialogAddedUserComponent)
+    dialog.componentInstance.user=this.user;
 
   }
 
