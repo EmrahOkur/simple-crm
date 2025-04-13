@@ -12,6 +12,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-dialog-added-user',
@@ -24,7 +26,9 @@ export class DialogAddedUserComponent implements OnInit {
   user: User = new User();
   loading=false;
   birthDate: Date=new Date() ; 
+  userId:string='';
 
+   private firestore: Firestore = inject(Firestore);
   constructor(
     public dialogRef: MatDialogRef<DialogAddedUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -37,12 +41,29 @@ export class DialogAddedUserComponent implements OnInit {
       if (this.user.birthDate) {
         this.birthDate = new Date(this.user.birthDate); 
       } else {
-        this.birthDate = new Date(); // Fallback
+        this.birthDate = new Date(); 
       }
     }
   }
   
-  saveUser() {
-    
-
-  }}
+  async saveUser() {
+    this.loading = true;
+    if (!this.userId) {
+      console.error('Keine Benutzer-ID vorhanden');
+      this.loading = false; 
+      return;
+    }
+  
+    try {
+      const userDocRef = doc(this.firestore, 'users', this.userId);
+      await updateDoc(userDocRef, { ...this.user });
+  
+      this.loading = false;
+      this.dialogRef.close();
+      console.log('Benutzer erfolgreich aktualisiert.');
+    } catch (error) {
+      console.error('Fehler beim Aktualisieren des Benutzers:', error);
+      this.loading = false;
+    }
+  }
+}

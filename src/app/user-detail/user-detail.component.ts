@@ -49,13 +49,15 @@ user:User=new User();
 
   editUserMenu(){
     const dialog=this.dialog.open(DialogAddedUserComponent)
-    dialog.componentInstance.user=this.user;
+    dialog.componentInstance.user=new User(this.user);
+    dialog.componentInstance.userId=this.userId;
 
   }
 
   editMenu(){
     const dialog=this.dialog.open(DialogAddedAddressComponent)
-    dialog.componentInstance.user=this.user;
+    dialog.componentInstance.user=new User(this.user);
+    dialog.componentInstance.userId=this.userId;
   }
 }
 

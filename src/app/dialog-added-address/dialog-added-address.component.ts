@@ -9,6 +9,8 @@ import { User } from '../../models/user.class';
 import { FormsModule } from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-dialog-added-address',
@@ -20,19 +22,33 @@ import { CommonModule } from '@angular/common';
 export class DialogAddedAddressComponent implements OnInit {
   user: User = new User();
   loading=false;
+  userId:string='';
 
-
+  private firestore: Firestore = inject(Firestore);
   constructor(public dialogRef: MatDialogRef<DialogAddedAddressComponent>) {}
 
 ngOnInit(): void {
   
 }
 
-saveUser(){
+async saveUser() {
+  this.loading = true;
+  if (!this.userId) {
+    console.error('Keine Benutzer-ID vorhanden');
+    this.loading = false; 
+    return;
+  }
 
+  try {
+    const userDocRef = doc(this.firestore, 'users', this.userId);
+    await updateDoc(userDocRef, { ...this.user });
+
+    this.loading = false;
+    this.dialogRef.close();
+    console.log('Benutzer erfolgreich aktualisiert.');
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren des Benutzers:', error);
+    this.loading = false;
+  }
 }
-
-
-
-
 }
