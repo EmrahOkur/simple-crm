@@ -1,1 +1,44 @@
-<p>dashboard works!</p>
+
+<div class="dashboard-container">
+    <div class="card-grid">
+  
+      <mat-card class="dashboard-card">
+        <mat-icon class="dashboard-icon">people</mat-icon>
+        <div class="card-content">
+          <h3>Kunden</h3>
+          <p>{{ customersCount }}</p>
+        </div>
+      </mat-card>
+  
+      <mat-card class="dashboard-card">
+        <mat-icon class="dashboard-icon">assignment</mat-icon>
+        <div class="card-content">
+          <h3>Aufträge</h3>
+          <p>{{ projectsCount }}</p>
+        </div>
+      </mat-card>
+  
+      <mat-card class="dashboard-card">
+        <mat-icon class="dashboard-icon">euro</mat-icon>
+        <div class="card-content">
+          <h3>Umsatz</h3>
+          <p>{{ totalRevenue | currency:'EUR' }}</p>
+        </div>
+      </mat-card>
+  
+    </div>
+  
+    <div class="chart-area">
+        <mat-card class="chart-card">
+          <h2>Neue Kunden pro Monat</h2>
+          <canvas baseChart
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            [legend]="true"
+            >
+          </canvas>
+        </mat-card>
+      </div>
+      
+  
